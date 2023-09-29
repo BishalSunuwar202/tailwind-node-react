@@ -19,7 +19,8 @@ router.get("/users", getAllUser);
 router.get("/users/:id", getUser);
 router.post("/login", login_validator, login);
 
-router.get("/products", authentication, getAddProduct);
+//router.get("/products", authentication, getAddProduct);
+router.get("/products", getAddProduct);
 
 router.post("/add-product", postAddProduct);
 
