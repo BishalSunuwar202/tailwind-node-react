@@ -9,6 +9,7 @@ app.use(express.json());
 
 app.use(mainRoute);
 
+//error handling
 app.use((err, req, res, next) => {
   //console.log("error");
   console.log(err.name);

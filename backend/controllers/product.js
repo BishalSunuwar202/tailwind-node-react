@@ -23,9 +23,13 @@ const postAddProduct = (req, res, next) => {
   }
 };
 
-// const getAddProduct = (req, res, next) => {
-//   console.log("test");
-// };
+const getAddProduct = async (req, res, next) => {
+  try {
+    res.send(await Product.find({}));
+  } catch (err) {
+    next(err);
+  }
+};
 
 exports.postAddProduct = postAddProduct;
-//exports.getAddProduct = getAddProduct;
+exports.getAddProduct = getAddProduct;

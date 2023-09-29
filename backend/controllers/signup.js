@@ -26,7 +26,11 @@ const postSignUp = (req, res, next) => {
   try {
     Signup.create({ ...req.body, password: hash })
       .then((info) => {
-        res.send({ info });
+        let user_obj = info.toObject();
+        console.log(user_obj);
+        delete user_obj.password;
+        //to send data without password
+        res.send({ info: user_obj });
       })
       .catch((err) => {
         console.log(err);
@@ -37,30 +41,30 @@ const postSignUp = (req, res, next) => {
   }
 };
 const login = async (req, res, next) => {
-  try{
+  try {
+    let email = req.body.email;
+    let user = await Signup.findOne({ email }).select("password");
+    //console.log(user));
 
-  
-  let email = req.body.email;
-  let user = await Signup.findOne({ email }).select("password");
-  //console.log(user));
-
-  let status = bcrypt.compareSync(req.body.password, user.password);
-  let user_obj = await Signup.findOne({ email });
-  console.log(user_obj);
-  //here we get Error: Expected "payload" to be a plain object. But when i check the type it will show object. This error comes because user_obj gives mongodb object and we need js object. so we use toObject() to change in plain js
-  var token = jwt.sign(user_obj.toObject(), "shhhhh");
-
-  if (status) {
-    return res.send({
-      access_token: token,
+    let status = bcrypt.compareSync(req.body.password, user.password);
+    let user_obj = await Signup.findOne({ email });
+    console.log(user_obj);
+    //here we get Error: Expected "payload" to be a plain object. But when i check the type it will show object. This error comes because user_obj gives mongodb object and we need js object. so we use toObject() to change in plain js
+    var token = jwt.sign(user_obj.toObject(), process.env.SECRET_KEY, {
+      expiresIn: "30s",
     });
+
+    if (status) {
+      return res.send({
+        access_token: token,
+      });
+    }
+    return res.status(401).send({
+      msg: "Invalid credentials",
+    });
+  } catch (err) {
+    next(err);
   }
-  return res.status(401).send({
-    msg: "Invalid credentials",
-  });
-}catch(err) {
-  next(err)
-}
 };
 
 exports.postSignUp = postSignUp;
