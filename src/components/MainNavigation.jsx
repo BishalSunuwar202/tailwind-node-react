@@ -19,16 +19,16 @@ const MainNavigation = () => {
               Products
             </Link>
           </li>
-          <li className="mx-[10px] cursor-pointer">Cart</li>
+          {/* <li className="mx-[10px] cursor-pointer">Cart</li> */}
           <li className="mx-[10px] cursor-pointer">Admin Products</li>
-          <li className="mx-[10px] cursor-pointer">
+          {/* <li className="mx-[10px] cursor-pointer">
             <Link
-              to={"add-products"}
+              to={"products/add-products"}
               className=" hover:text-blue-800  active:bg-red-600 focus:ring-1 focus:ring-red-500"
             >
               Add Products
             </Link>
-          </li>
+          </li> */}
           <li className="mx-[10px] cursor-pointer">Orders</li>
         </ul>
         <div className="hidden md:block px-2 py-2 bg-indigo-700 text-white rounded font-bold cursor-pointer">

@@ -1,5 +1,5 @@
 const express = require("express");
-const { postAddProduct, getAddProduct } = require("../controllers/product");
+const { postAddProduct, getAddProduct, getProductById } = require("../controllers/product");
 const {
   postSignUp,
   getAllUser,
@@ -21,6 +21,7 @@ router.post("/login", login_validator, login);
 
 //router.get("/products", authentication, getAddProduct);
 router.get("/products", getAddProduct);
+router.get("/products/:id", getProductById);
 
 router.post("/add-product", postAddProduct);
 

@@ -6,13 +6,13 @@ const Signup = require("../models/Signup");
 const getUser = async (req, res, next) => {
   try {
     res.send(await Signup.findById(req.params.id));
-    //console.log(req.params);
+    //console.log(req.params); params = routes parameter 
     //console.log(req.query);
   } catch (err) {
     console.log(err);
   }
 
-  res.send(await Signup.findById((id) => req.param === id));
+  // res.send(await Signup.findById((id) => req.param === id));
 };
 const getAllUser = async (req, res, next) => {
   res.send(await Signup.find({}));

@@ -30,6 +30,14 @@ const getAddProduct = async (req, res, next) => {
     next(err);
   }
 };
+const getProductById = async (req, res, next) => {
+  try {
+    res.send(await Product.findById(req.params.id));
+  } catch (err) {
+    next(err);
+  }
+};
 
 exports.postAddProduct = postAddProduct;
 exports.getAddProduct = getAddProduct;
+exports.getProductById = getProductById;

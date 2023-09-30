@@ -4,8 +4,11 @@ import HomePage from "./pages/Home";
 import ProductsPage, { loader as productsLoader } from "./pages/Products";
 import RootLayout from "./pages/Root";
 import ErrorPage from "./pages/error";
-import ProductDetails from "./pages/ProductDetails";
+import ProductDetails, {
+  loader as productDetailLoader,
+} from "./pages/ProductDetails";
 import AddProducts from "./pages/AddProducts";
+import ProductRootLayout from "./pages/ProductsRootLayout";
 
 const router = createBrowserRouter([
   {
@@ -17,9 +20,23 @@ const router = createBrowserRouter([
         index: true,
         element: <HomePage />, //path: ""
       },
-      { path: "products", element: <ProductsPage />, loader: productsLoader },
-      { path: "products/:productId", element: <ProductDetails /> },
-      { path: "add-products", element: <AddProducts /> },
+      {
+        path: "products",
+        element: <ProductRootLayout />,
+        children: [
+          {
+            index: true,
+            element: <ProductsPage />,
+            loader: productsLoader,
+          },
+          {
+            path: ":productId",
+            element: <ProductDetails />,
+            loader: productDetailLoader,
+          },
+          { path: "add-products", element: <AddProducts /> },
+        ],
+      },
     ],
   },
 ]);

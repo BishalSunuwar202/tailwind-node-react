@@ -1,10 +1,11 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
-import Products from "../components/ProductsList";
+import { json, useLoaderData } from "react-router-dom";
+import ProductsList from "../components/ProductsList";
 
 const ProductsPage = () => {
   const products = useLoaderData();
-  return <Products products={products} />;
+
+  return <ProductsList products={products} />;
 
   // <>
   //    <h1>The Products Page</h1>
@@ -23,7 +24,18 @@ export default ProductsPage;
 
 export async function loader() {
   const response = await fetch("http://localhost:3001/products");
+  console.log(response);
   if (!response.ok) {
+    //throw { message: "Could not fetch products" };
+    // throw new Response(JSON.stringify({ message: "could not fetch events" }), {
+    //   status: 500,
+    // });
+    throw json(
+      { message: "Could not fetch products" },
+      {
+        status: 500,
+      }
+    );
   } else {
     //const resData = await response.json()
     //return resData.products
