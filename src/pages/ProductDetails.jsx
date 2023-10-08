@@ -1,8 +1,9 @@
 import React from "react";
 import ProductItem from "../components/ProductItem";
-import { json, useLoaderData } from "react-router-dom";
+import { json, redirect, useRouteLoaderData } from "react-router-dom";
 const ProductDetails = () => {
-  const products = useLoaderData();
+  //const products = useLoaderData();
+  const products = useRouteLoaderData("product-detail");
 
   //const params = useParams();
   //params == router parameters
@@ -23,7 +24,6 @@ export async function loader({ request, params }) {
         }
       );
     } else {
-      console.log(response);
       return response;
       // const data = await response.json();
       // console.log(data); // Log the data to inspect it
@@ -33,4 +33,22 @@ export async function loader({ request, params }) {
     console.log("loder error:", err);
     throw err;
   }
+}
+
+export async function action({ params, request }) {
+  const productId = params.productId;
+  const response = await fetch("http://localhost:3001/products/" + productId, {
+    //method: "DELETE",
+    method: request.method,
+    //dynamically extracting the method
+  });
+  if (!response.ok) {
+    throw json(
+      { message: "Could not delete product." },
+      {
+        status: 500,
+      }
+    );
+  }
+  return redirect("/products");
 }

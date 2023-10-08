@@ -18,8 +18,8 @@ const signup_validator = validate([
   check("password").isLength({ min: 6 }),
 ]);
 const login_validator = validate([
-  check("email").exists(),
-  check("password").exists(),
+  check("email").exists().notEmpty(),
+  check("password").exists().isLength({min: 5}),
 ]);
 
 // body('email').isEmail(),

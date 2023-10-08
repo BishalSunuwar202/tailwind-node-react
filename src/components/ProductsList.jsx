@@ -12,16 +12,16 @@ const ProductsList = (props) => {
             className="list-none bg-slate-400 text-current flex rounded-md overflow-hidden"
           >
             <Link to={product._id}>
-              <div className="p-4">
+              <div className="p-4 flex flex-col items-center">
                 <p>{product.name}</p>
                 <h2>{product.price}</h2>
+                <img
+                  className="w-1/3 object-cover"
+                  src={product.url}
+                  alt="product.name"
+                />
+                <h2>{product.description}</h2>
               </div>
-              <img
-                className="w-1/3 object-cover"
-                src={product.url}
-                alt="product.name"
-              />
-              <h2>{product.description}</h2>
             </Link>
           </li>
         ))}

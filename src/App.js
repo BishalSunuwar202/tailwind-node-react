@@ -6,9 +6,13 @@ import RootLayout from "./pages/Root";
 import ErrorPage from "./pages/error";
 import ProductDetails, {
   loader as productDetailLoader,
+  action as deleteProductAction,
 } from "./pages/ProductDetails";
+//import AddProducts, { action as newProductAction } from "./pages/AddProducts";
 import AddProducts from "./pages/AddProducts";
+import { action as manipulateProductAction } from "./components/ProductForm";
 import ProductRootLayout from "./pages/ProductsRootLayout";
+import EditProduct from "./pages/EditProduct";
 
 const router = createBrowserRouter([
   {
@@ -31,10 +35,27 @@ const router = createBrowserRouter([
           },
           {
             path: ":productId",
-            element: <ProductDetails />,
+            id: "product-detail",
             loader: productDetailLoader,
+            children: [
+              {
+                index: true,
+                element: <ProductDetails />,
+                action: deleteProductAction,
+              },
+              {
+                path: "edit",
+                element: <EditProduct />,
+                action: manipulateProductAction,
+              },
+            ],
           },
-          { path: "add-products", element: <AddProducts /> },
+          {
+            path: "add-product",
+            element: <AddProducts />,
+            //action: newProductAction,
+            action: manipulateProductAction,
+          },
         ],
       },
     ],

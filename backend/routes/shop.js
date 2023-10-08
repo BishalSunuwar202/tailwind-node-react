@@ -1,5 +1,10 @@
 const express = require("express");
-const { postAddProduct, getAddProduct, getProductById } = require("../controllers/product");
+const {
+  postAddProduct,
+  getAddProduct,
+  getProductById,
+  postDeleteProduct,
+} = require("../controllers/product");
 const {
   postSignUp,
   getAllUser,
@@ -8,6 +13,7 @@ const {
 } = require("../controllers/signUp");
 const { signup_validator, login_validator } = require("../middleware/user");
 const { authentication } = require("../middleware/auth");
+const { product_validator } = require("../middleware/prod");
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
@@ -23,7 +29,8 @@ router.post("/login", login_validator, login);
 router.get("/products", getAddProduct);
 router.get("/products/:id", getProductById);
 
-router.post("/add-product", postAddProduct);
+router.post("/add-product", product_validator, postAddProduct);
+router.delete("/products/:id", postDeleteProduct);
 
 router.post("/signup", signup_validator, postSignUp);
 

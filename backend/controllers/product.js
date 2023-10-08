@@ -38,6 +38,21 @@ const getProductById = async (req, res, next) => {
   }
 };
 
+const postDeleteProduct = async (req, res, next) => {
+  try {
+    const prodId = req.params.id;
+    res.send(await Product.findByIdAndRemove(prodId));
+  } catch (err) {
+    next(err);
+  }
+};
+const postEditProduct =  async (req, res, next) => {
+  
+  res.send(await Product.findByIdAndUpdate)
+}
+
+
 exports.postAddProduct = postAddProduct;
 exports.getAddProduct = getAddProduct;
 exports.getProductById = getProductById;
+exports.postDeleteProduct = postDeleteProduct;
