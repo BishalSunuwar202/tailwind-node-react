@@ -4,6 +4,7 @@ const {
   getAddProduct,
   getProductById,
   postDeleteProduct,
+  postEditProduct,
 } = require("../controllers/product");
 const {
   postSignUp,
@@ -21,8 +22,9 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/users", getAllUser);
-
 router.get("/users/:id", getUser);
+
+router.post("/signup", signup_validator, postSignUp);
 router.post("/login", login_validator, login);
 
 //router.get("/products", authentication, getAddProduct);
@@ -31,7 +33,6 @@ router.get("/products/:id", getProductById);
 
 router.post("/add-product", product_validator, postAddProduct);
 router.delete("/products/:id", postDeleteProduct);
-
-router.post("/signup", signup_validator, postSignUp);
+router.patch("/add-product/:id", postEditProduct);
 
 module.exports = router;

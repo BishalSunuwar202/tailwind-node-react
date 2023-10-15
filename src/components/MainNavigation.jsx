@@ -32,7 +32,7 @@ const MainNavigation = () => {
           <li className="mx-[10px] cursor-pointer">Orders</li>
         </ul>
         <div className="hidden md:block px-2 py-2 bg-indigo-700 text-white rounded font-bold cursor-pointer">
-          Login/Signup
+          <Link to="auth?mode=login">Login/Signup</Link>
         </div>
         <div className="md:hidden">
           <Link to={"#"} className="text-4xl">

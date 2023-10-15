@@ -1,11 +1,20 @@
-import React from "react";
-import { json, useLoaderData } from "react-router-dom";
+import React, { Suspense } from "react";
+import { Await, defer, json, useLoaderData } from "react-router-dom";
 import ProductsList from "../components/ProductsList";
 
 const ProductsPage = () => {
-  const products = useLoaderData();
+  //const products = useLoaderData();
+  //return <ProductsList products={products} />;
+  const { products } = useLoaderData();
 
-  return <ProductsList products={products} />;
+  return (
+    <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+      <Await resolve={products}>
+        {(loadedProducts) => <ProductsList products={loadedProducts} />}
+      </Await>
+    </Suspense>
+  ); //resolve is a prop which will take deffered value
+  //Await will wait for the data to be there i.e in resolve
 
   // <>
   //    <h1>The Products Page</h1>
@@ -22,7 +31,7 @@ const ProductsPage = () => {
 
 export default ProductsPage;
 
-export async function loader() {
+async function loadProducts() {
   const response = await fetch("http://localhost:3001/products");
   if (!response.ok) {
     //throw { message: "Could not fetch products" };
@@ -38,6 +47,14 @@ export async function loader() {
   } else {
     //const resData = await response.json()
     //return resData.products
-    return response;
+    //return response;
+    const resData = await response.json(); //this line is added because the response is not in loader function as there is defer function
+    return resData;
   }
+}
+
+export function loader() {
+  return defer({
+    products: loadProducts(),
+  });
 }

@@ -46,13 +46,21 @@ const postDeleteProduct = async (req, res, next) => {
     next(err);
   }
 };
-const postEditProduct =  async (req, res, next) => {
-  
-  res.send(await Product.findByIdAndUpdate)
-}
-
+const postEditProduct = async (req, res, next) => {
+  try {
+    const updatedListing = await Product.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.status(200).json(updatedListing);
+  } catch (error) {
+    next(error);
+  }
+};
 
 exports.postAddProduct = postAddProduct;
 exports.getAddProduct = getAddProduct;
 exports.getProductById = getProductById;
 exports.postDeleteProduct = postDeleteProduct;
+exports.postEditProduct = postEditProduct;

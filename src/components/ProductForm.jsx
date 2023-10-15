@@ -109,7 +109,7 @@ export async function action({ request, params }) {
   let url = "http://localhost:3001/add-product";
   if (method === "PATCH") {
     const productId = params.productId; //productId here because i wrote :productId in route
-    url = "http://localhost:3001/add-product" + productId;
+    url = "http://localhost:3001/add-product/" + productId;
   }
 
   const response = await fetch(url, {

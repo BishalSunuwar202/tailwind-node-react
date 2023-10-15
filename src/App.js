@@ -13,6 +13,9 @@ import AddProducts from "./pages/AddProducts";
 import { action as manipulateProductAction } from "./components/ProductForm";
 import ProductRootLayout from "./pages/ProductsRootLayout";
 import EditProduct from "./pages/EditProduct";
+import AuthenticationPage, {
+  action as authAction,
+} from "./pages/Authentication";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +27,8 @@ const router = createBrowserRouter([
         index: true,
         element: <HomePage />, //path: ""
       },
+      { path: "auth", element: <AuthenticationPage />, action: authAction },
+
       {
         path: "products",
         element: <ProductRootLayout />,
