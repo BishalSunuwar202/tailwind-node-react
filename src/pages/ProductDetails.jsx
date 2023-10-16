@@ -1,6 +1,7 @@
 import React from "react";
 import ProductItem from "../components/ProductItem";
 import { json, redirect, useRouteLoaderData } from "react-router-dom";
+import { getAuthToken } from "../utils/auth";
 const ProductDetails = () => {
   //const products = useLoaderData();
   const products = useRouteLoaderData("product-detail");
@@ -37,9 +38,15 @@ export async function loader({ request, params }) {
 
 export async function action({ params, request }) {
   const productId = params.productId;
+  const access_token = getAuthToken();
+  console.log(access_token);
+
   const response = await fetch("http://localhost:3001/products/" + productId, {
     //method: "DELETE",
     method: request.method,
+    headers: {
+      Authorization: "Bearer" + access_token,
+    },
     //dynamically extracting the method
   });
   if (!response.ok) {

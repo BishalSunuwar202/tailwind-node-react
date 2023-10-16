@@ -11,7 +11,7 @@ const {
   getAllUser,
   getUser,
   login,
-} = require("../controllers/signUp");
+} = require("../controllers/signup");
 const { signup_validator, login_validator } = require("../middleware/user");
 const { authentication } = require("../middleware/auth");
 const { product_validator } = require("../middleware/prod");
@@ -24,8 +24,8 @@ router.get("/", (req, res, next) => {
 router.get("/users", getAllUser);
 router.get("/users/:id", getUser);
 
-router.post("/signup", signup_validator, postSignUp);
-router.post("/login", login_validator, login);
+router.post("/auth/signup", signup_validator, postSignUp);
+router.post("/auth/login", login_validator, login);
 
 //router.get("/products", authentication, getAddProduct);
 router.get("/products", getAddProduct);

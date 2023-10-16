@@ -18,13 +18,24 @@ export async function action({ request }) {
   }
 
   const data = await request.formData();
-  const authData = { 
-    username: data.get("username"),
+  // const authData = {
+  //   username: data.get("username"),
+  //   email: data.get("email"),
+  //   password: data.get("password"),
+  // };
+
+  const authData = {
     email: data.get("email"),
     password: data.get("password"),
   };
 
-  const response = await fetch("http://localhost:3001" + mode, {
+  // Include username only when mode is "signup"
+  if (mode === "signup") {
+    authData.username = data.get("username");
+  }
+
+  console.log(authData);
+  const response = await fetch("http://localhost:3001/auth/" + mode, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,13 +43,20 @@ export async function action({ request }) {
     body: JSON.stringify(authData),
   });
 
-  if (response.status === 422 || response.status === 401) {
+  if (response.status === 401 || response.status === 400) {
+    console.log(response.status);
     return response;
   }
 
   if (!response.ok) {
     throw json({ message: "could not authenticate user" }, { status: 500 });
   }
+
+  const resData = await response.json();
+  const access_token = resData.access_token;
+  console.log(access_token);
+
+  localStorage.setItem("access_token", access_token);
 
   return redirect("/");
 }
