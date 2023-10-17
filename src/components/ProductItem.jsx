@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useSubmit } from "react-router-dom";
 import Button from "./Button";
 
-const ProductItem = ({ products }) => {
+const ProductItem = ({ product }) => {
   const submit = useSubmit();
   function startDeleteHandler() {
     const proceed = window.confirm("Are you sure?");
@@ -17,15 +17,15 @@ const ProductItem = ({ products }) => {
   return (
     <article className="m-auto text-center">
       <h1 className="m-4 font-bold">Product Details</h1>
-      <p className="font-semibold">{products.name}</p>
-      <h2 className="font-semibold">{products.price}</h2>
+      <p className="font-semibold">{product.name}</p>
+      <h2 className="font-semibold">{product.price}</h2>
 
       <img
         className="rounded-xl w-1/6 mx-auto"
-        src={products.url}
+        src={product.url}
         alt="product.name"
       />
-      <h2 className="w-1/5 mx-auto font-semibold">{products.description}</h2>
+      <h2 className="w-1/5 mx-auto font-semibold">{product.description}</h2>
       {/* <p className="m-4">{params.productId}</p> */}
       <p>
         <Link to=".." relative="path">

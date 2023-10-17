@@ -11,7 +11,9 @@ const ProductsList = (props) => {
             key={product._id}
             className="list-none bg-slate-400 text-current flex rounded-md overflow-hidden"
           >
-            <Link to={product._id}>
+            {/* <Link to={product._id}> */}
+            {/* we need absolute path down here, because when i use relative path, the path will broke and results like this http://localhost:3000/products/651821bdb72f046dd31a2c5b/651821bdb72f046dd31a2c5b */}
+            <Link to={`/products/${product._id}`}>
               <div className="p-4 flex flex-col items-center">
                 <p>{product.name}</p>
                 <h2>{product.price}</h2>

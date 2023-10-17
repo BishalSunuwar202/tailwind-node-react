@@ -3,7 +3,8 @@ import { useLoaderData, useRouteLoaderData } from "react-router-dom";
 import ProductForm from "../components/ProductForm";
 
 const EditProduct = () => {
-  const product = useRouteLoaderData("product-detail");
+  const {product} = useRouteLoaderData("product-detail");
+  console.log(product);
   return <ProductForm method="patch" product={product} />;
 };
 

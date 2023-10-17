@@ -6,6 +6,7 @@ import {
   useActionData,
   useNavigation,
 } from "react-router-dom";
+import { getAuthToken } from "../utils/auth";
 
 const ProductForm = ({ method, product }) => {
   const data = useActionData();
@@ -35,7 +36,7 @@ const ProductForm = ({ method, product }) => {
               type="text"
               id="name"
               name="name"
-              //required
+              required
               defaultValue={product ? product.name : ""}
             />
 
@@ -47,7 +48,7 @@ const ProductForm = ({ method, product }) => {
               type="number"
               id="price"
               name="price"
-              //required
+              required
               defaultValue={product ? product.price : ""}
             />
 
@@ -59,7 +60,7 @@ const ProductForm = ({ method, product }) => {
               type="text"
               id="image"
               name="url"
-              //required
+              required
               defaultValue={product ? product.url : ""}
             />
 
@@ -71,7 +72,7 @@ const ProductForm = ({ method, product }) => {
               type="text"
               id="description"
               name="description"
-              //required
+              required
               defaultValue={product ? product.description : ""}
             />
 
@@ -112,12 +113,14 @@ export async function action({ request, params }) {
     url = "http://localhost:3001/add-product/" + productId;
   }
 
+  const access_token = getAuthToken()
   const response = await fetch(url, {
     //const response = await fetch("http://localhost:3001/add-product", {
     //method: "POST",
     method: method,
     headers: {
       "Content-Type": "application/json",
+      'Authorization': 'Bearer ' + access_token
     },
     body: JSON.stringify(productData),
   });
