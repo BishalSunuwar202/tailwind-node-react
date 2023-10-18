@@ -15,3 +15,5 @@ router.get("/users/:id", getUser);
 
 router.post("/auth/signup", signup_validator, postSignUp);
 router.post("/auth/login", login_validator, login);
+
+module.exports = router;

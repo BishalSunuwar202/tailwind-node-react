@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 
 const MainNavigation = () => {
   return (
@@ -34,6 +34,13 @@ const MainNavigation = () => {
         <div className="hidden md:block px-2 py-2 bg-indigo-700 text-white rounded font-bold cursor-pointer">
           <Link to="auth?mode=login">Login/Signup</Link>
         </div>
+
+        <Form action="/logout" method='post'>
+          <button className="hidden md:block px-2 py-2 bg-indigo-700 text-white rounded font-bold cursor-pointer">
+            Logout
+          </button>
+        </Form>
+
         <div className="md:hidden">
           <Link to={"#"} className="text-4xl">
             &#8801;

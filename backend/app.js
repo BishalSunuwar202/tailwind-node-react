@@ -3,14 +3,15 @@ const express = require("express");
 const cors = require("cors");
 
 const mainRoute = require("./routes/shop");
+const authRoute = require("./routes/auth");
 const app = express();
 require("dotenv").config();
 
 app.use(express.json());
 
 app.use(cors());
-
-app.use(mainRoute);
+app.use(authRoute);
+app.use('/products', mainRoute);
 
 //error handling
 app.use((err, req, res, next) => {

@@ -107,10 +107,10 @@ export async function action({ request, params }) {
     description: data.get("description"),
   };
 
-  let url = "http://localhost:3001/add-product";
+  let url = "http://localhost:3001/products/add-product";
   if (method === "PATCH") {
     const productId = params.productId; //productId here because i wrote :productId in route
-    url = "http://localhost:3001/add-product/" + productId;
+    url = "http://localhost:3001/products/add-product/" + productId;
   }
 
   const access_token = getAuthToken()
